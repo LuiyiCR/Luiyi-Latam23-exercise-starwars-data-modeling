@@ -21,8 +21,6 @@ class Planet(Base):
     climate = Column(String(200))
     terrain = Column(String(200))
     population = Column(Integer)
-    user_id = Column(Integer, ForeignKey('user.id'))
-    user = relationship(User)
 
 class Character(Base):
     __tablename__ = 'character'
@@ -31,18 +29,14 @@ class Character(Base):
     gender = Column(String(200))
     age = Column(String(200))
     species = Column(String(200))
-    user_id = Column(Integer, ForeignKey('user.id'))
-    user = relationship(User)
 
 class Favorite(Base):
     __tablename__ = 'favorite'
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('user.id'))
-    planet_id = Column(Integer, ForeignKey('planet.id'))
-    character_id = Column(Integer, ForeignKey('character.id'))
+    user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
+    planet_id = Column(Integer, ForeignKey('planet.id'), nullable=True)
+    character_id = Column(Integer, ForeignKey('character.id'), nullable=True)
     user = relationship(User)
-
-
 
     def to_dict(self):
         return {}
